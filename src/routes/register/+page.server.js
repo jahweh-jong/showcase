@@ -1,5 +1,5 @@
-import { redirect } from '@sveltejs/kit';
-import { generateUsername } from '../../lib/utils';
+import { redirect, error } from '@sveltejs/kit';
+import { generateUsername } from '$lib/utils';
  
 export const actions = {
     register: async ({ locals, request }) => {
@@ -11,9 +11,8 @@ export const actions = {
         try{
             await locals.pb.collection('users').create({username, ...body})
             await locals.pb.collection('users').requestVerification(body.email)
-        } catch (error) {
-            console.log('Error:', error)
-            throw error(500, 'SOmething went wrong')
+        } catch (err) { 
+            throw error(500, 'Something went wrong')
         } 
 
         throw redirect(303, '/login')

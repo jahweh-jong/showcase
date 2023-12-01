@@ -1,13 +1,11 @@
-import { PUBLIC_POCKETBASE_URL } from '$env/static/public'
-
-const { randomBytes } = await import('node:crypto')
+import { PUBLIC_POCKETBASE_URL } from '$env/static/public' 
 
 export const serializeNonPOJOs = (obj) => {
     return structuredClone(obj)
 }
 
 export const generateUsername = (name) => {
-    const id = randomBytes(2).toString('hex')
+    const id = Math.floor(Math.random() * 10000)
     return `${name.slice(0, 5)}${id}`
 }
 
